@@ -44,3 +44,30 @@ def test_correct_expected_number_of_reps_setter(exercise_set):
     expected_number_of_reps = 10
     exercise_set.expected_number_of_reps = expected_number_of_reps
     assert exercise_set.expected_number_of_reps == expected_number_of_reps
+
+
+def test_non_integer_number_of_completed_reps_setter(exercise_set):
+    number_of_completed_reps = 1.244
+    with pytest.raises(Exception):
+        exercise_set.number_of_completed_reps = number_of_completed_reps
+
+
+def test_negative_number_of_completed_reps_setter(exercise_set):
+    number_of_completed_reps = -100
+    with pytest.raises(Exception):
+        exercise_set.number_of_completed_reps = number_of_completed_reps
+
+
+def test_already_set_number_of_completed_reps_setter(exercise_set):
+    number_of_completed_reps = 10
+    exercise_set.number_of_completed_reps = number_of_completed_reps
+
+    new_number_of_completed_reps = 12
+    with pytest.raises(Exception):
+        exercise_set.number_of_completed_reps = new_number_of_completed_reps
+
+
+def test_correct_number_of_completed_reps_setter(exercise_set):
+    number_of_completed_reps = 10
+    exercise_set.number_of_completed_reps = number_of_completed_reps
+    assert exercise_set.number_of_completed_reps == number_of_completed_reps
