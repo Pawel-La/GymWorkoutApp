@@ -18,6 +18,18 @@ class ExerciseSet:
             raise Exception("Weight can't be a negative number!")
         self._weight = weight
 
+    @property
+    def expected_number_of_reps(self):
+        return self._expected_number_of_reps
+
+    @expected_number_of_reps.setter
+    def expected_number_of_reps(self, expected_number_of_reps):
+        if not isinstance(expected_number_of_reps, int):
+            raise Exception("Expected number of reps must be an integer!")
+        if expected_number_of_reps <= 0:
+            raise Exception("Expected number of reps must be positive!")
+        self._expected_number_of_reps = expected_number_of_reps
+
     def summary(self) -> str:
         return f"Weight: {self.weight}\n" \
                f"Expected number of reps: {self.expected_number_of_reps}\n" \
