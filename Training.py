@@ -6,9 +6,12 @@ from Exercise import Exercise
 
 class Training:
     def __init__(self,
-                 date: datetime = datetime.now()) -> None:
+                 date: datetime = datetime.now(),
+                 exercises: List[Exercise] = None) -> None:
         self.date = date
-        self.exercises = []
+        if exercises is None:
+            exercises = []
+        self.exercises = exercises
 
     @property
     def date(self) -> datetime:
