@@ -38,23 +38,6 @@ def test_incorrect_class_object_date_setter(training):
     assert training.date != date
 
 
-# def test_correct_exercises_list_setter(training):
-#     exercises = [Exercise(name="Pull up", number_of_exercise_sets=5),
-#                  Exercise(name="Push up", number_of_exercise_sets=4)]
-#     training.exercises = exercises
-#     assert exercises == training.exercises
-
-
-# def test_incorrect_exercises_list_setter(training):
-#     exercises = [Exercise(name="Pull up", number_of_exercise_sets=5),
-#                  Exercise(name="Push up", number_of_exercise_sets=4),
-#                  512412]
-#
-#     with pytest.raises(Exception):
-#         training.exercises = exercises
-#     assert training.exercises != exercises
-
-
 def test_correct_add_one_exercise(training):
     exercise = Exercise(name="Pull up", number_of_exercise_sets=5)
     training.add_one_exercise(exercise)
@@ -77,3 +60,38 @@ def test_already_exists_add_one_exercise(training):
         training.add_one_exercise(exercise2)
     assert len(training.dict_of_exercises) == 1
     assert training.dict_of_exercises[exercise1.name] == exercise1
+
+
+def test_correct_add_multiple_exercises(training):
+    exercise1 = Exercise(name="Pull up", number_of_exercise_sets=5)
+    exercise2 = Exercise(name="Push up", number_of_exercise_sets=4)
+    exercises = [exercise1, exercise2]
+
+    training.add_multiple_exercises(exercises)
+    assert training.dict_of_exercises[exercise1.name] == exercise1
+    assert training.dict_of_exercises[exercise2.name] == exercise2
+    assert len(training.dict_of_exercises) == len(exercises)
+
+
+def test_not_a_list_add_multiple_exercises(training):
+    exercises = 10
+    with pytest.raises(Exception):
+        training.add_multiple_exercises(exercises)
+
+
+def test_incorrect_class_object_add_multiple_exercises(training):
+    exercise1 = Exercise(name="Pull up", number_of_exercise_sets=5)
+    exercise2 = Exercise(name="Push up", number_of_exercise_sets=4)
+    exercise3 = 10
+    exercises = [exercise1, exercise2, exercise3]
+    with pytest.raises(Exception):
+        training.add_multiple_exercises(exercises)
+
+
+def test_already_exists_add_multiple_exercises(training):
+    exercise1 = Exercise(name="Pull up", number_of_exercise_sets=5)
+    exercise2 = Exercise(name="Push up", number_of_exercise_sets=4)
+    exercise3 = Exercise(name="Pull up", number_of_exercise_sets=4)
+    exercises = [exercise1, exercise2, exercise3]
+    with pytest.raises(Exception):
+        training.add_multiple_exercises(exercises)
