@@ -7,10 +7,11 @@ class Exercise:
     def __init__(self,
                  name: str,
                  number_of_exercise_sets: int,
-                 number_of_reps_in_each_set: int = None) -> None:
+                 expected_number_of_reps_in_each_set: int = None) -> None:
         self.name = name
         self.number_of_exercise_sets = number_of_exercise_sets
-        self.number_of_reps_in_each_set = number_of_reps_in_each_set
+        self.expected_number_of_reps_in_each_set = \
+            expected_number_of_reps_in_each_set
 
     @property
     def name(self) -> str:
@@ -37,17 +38,25 @@ class Exercise:
         self._number_of_exercise_sets = number_of_exercise_sets
 
     @property
-    def number_of_reps_in_each_set(self) -> Optional[int]:
-        return self._number_of_reps_in_each_set
+    def expected_number_of_reps_in_each_set(self) -> Optional[int]:
+        return self._expected_number_of_reps_in_each_set
 
-    @number_of_reps_in_each_set.setter
-    def number_of_reps_in_each_set(self, number_of_reps_in_each_set) -> None:
-        if number_of_reps_in_each_set is None:
-            self._number_of_reps_in_each_set = number_of_reps_in_each_set
+    @expected_number_of_reps_in_each_set.setter
+    def expected_number_of_reps_in_each_set(
+            self,
+            expected_number_of_reps_in_each_set) -> None:
+
+        if not hasattr(self, 'expected_number_of_reps_in_each_set') and \
+                expected_number_of_reps_in_each_set is None:
+            self._number_of_reps_in_each_set = None
             return
-        if not isinstance(number_of_reps_in_each_set, int):
-            raise Exception("Number of reps in each set must be an integer!")
-        if number_of_reps_in_each_set <= 0:
-            raise Exception("Number of reps in each set must "
+
+        if not isinstance(expected_number_of_reps_in_each_set, int):
+            raise Exception("Expected number of reps in each set must "
+                            "be an integer!")
+        if expected_number_of_reps_in_each_set <= 0:
+            raise Exception("Expected number of reps in each set must "
                             "be a positive number!")
-        self._number_of_reps_in_each_set = number_of_reps_in_each_set
+
+        self._expected_number_of_reps_in_each_set = \
+            expected_number_of_reps_in_each_set
