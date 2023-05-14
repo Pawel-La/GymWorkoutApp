@@ -2,14 +2,15 @@ from typing import Optional
 
 
 # TODO -> add weight units like Kgs and Lbs
-# TODO -> add sets as new class because each set might have different weight
+# TODO -> add ability to specify number of reps in each set
 class Exercise:
     def __init__(self,
                  name: str,
-                 number_of_exercise_sets: int) -> None:
+                 number_of_exercise_sets: int,
+                 number_of_reps_in_each_set: int = None) -> None:
         self.name = name
         self.number_of_exercise_sets = number_of_exercise_sets
-        self.exercise_sets = [None for _ in range(number_of_exercise_sets)]
+        self.number_of_reps_in_each_set = number_of_reps_in_each_set
 
     @property
     def name(self) -> str:
@@ -23,7 +24,7 @@ class Exercise:
 
     @property
     def number_of_exercise_sets(self) -> int:
-        return self._number_of_sets
+        return self._number_of_exercise_sets
 
     @number_of_exercise_sets.setter
     def number_of_exercise_sets(self, number_of_exercise_sets) -> None:
@@ -33,7 +34,20 @@ class Exercise:
             raise Exception("Number of sets must be a positive number!")
         if number_of_exercise_sets > 5:
             raise Exception("Too many sets, more isn't always better!")
-        self._number_of_sets = number_of_exercise_sets
-        self.exercise_sets = [None for _ in range(number_of_exercise_sets)]
+        self._number_of_exercise_sets = number_of_exercise_sets
 
-    # def add_exercise_set(self, ):
+    @property
+    def number_of_reps_in_each_set(self) -> Optional[int]:
+        return self._number_of_reps_in_each_set
+
+    @number_of_reps_in_each_set.setter
+    def number_of_reps_in_each_set(self, number_of_reps_in_each_set) -> None:
+        if number_of_reps_in_each_set is None:
+            self._number_of_reps_in_each_set = number_of_reps_in_each_set
+            return
+        if not isinstance(number_of_reps_in_each_set, int):
+            raise Exception("Number of reps in each set must be an integer!")
+        if number_of_reps_in_each_set <= 0:
+            raise Exception("Number of reps in each set must "
+                            "be a positive number!")
+        self._number_of_reps_in_each_set = number_of_reps_in_each_set
