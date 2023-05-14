@@ -48,7 +48,7 @@ class Exercise:
 
         if not hasattr(self, 'expected_number_of_reps_in_each_set') and \
                 expected_number_of_reps_in_each_set is None:
-            self._number_of_reps_in_each_set = None
+            self._expected_number_of_reps_in_each_set = None
             return
 
         if not isinstance(expected_number_of_reps_in_each_set, int):
